@@ -1,10 +1,9 @@
 // == Initial State
 const initialState = {
-  message: 'Hello',
+  response: {},
 };
 
 // == Types
-const DO_SOMETHING = 'DO_SOMETHING';
 
 // == Reducer
 const reducer = (state = initialState, action = {}) => {
@@ -21,10 +20,6 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 // == Action Creators
-export const doSomething = message => ({
-  type: DO_SOMETHING,
-  message,
-});
 
 
 // == Selectors
