@@ -5,13 +5,18 @@ import { connect } from 'react-redux';
 import Search from 'src/components/Search';
 
 // Action Creators
-import { FETCH_REQUEST } from 'src/store/logMiddleware';
+import { fetchRequest } from 'src/store/logMiddleware';
+import { activeLoader } from 'src/store/reducer';
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => ({
+  response: state.response,
+  isLoading: state.isLoading,
+});
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = (dispatch) => ({
   launchRequest: () => {
-    console.log('launch des trucs stp');
+    dispatch(activeLoader());
+    dispatch(fetchRequest());
   },
 });
 

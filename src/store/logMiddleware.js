@@ -1,28 +1,31 @@
-// == Type
+import axios from 'axios';
+import { displayResponse } from 'src/store/reducer';
+
 const FETCH_REQUEST = 'FETCH_REQUEST';
 
 const logMiddleware = (store) => (next) => (action) => {
   console.log('Je suis le middleware, et je laisse passer cette action: ', action);
-  next(action);
-
-  // POUR EXEMPLE: Requetes avec Axios
-  // Je dois réagir uniquement à certains types d'action
+  const url = 'https://swapi.co/api/people/1/';
   switch (action.type) {
-    case FETCH_QQCHOSE:
+    case FETCH_REQUEST:
       axios.get(url)
-        .then(response => {
-          // Ici tu sais que tu as obtenu avec succès ta réponse
-          // Tu peux la récupérer dans response.data
-          const { data } = response.
-            //  Il faut ensuite informer le reducer des nouvelles données reçues
-            store.dispatch(receivedQqchose(data));
+        .then((response) => {
+          const { data } = response;
+          store.dispatch(displayResponse(data));
         })
-        .catch()
+
+        .catch((error) => {
+          console.log(error);
+        });
+      break;
+
     default:
       next(action);
   }
 };
 
-// == action creators
+export const fetchRequest = () => ({
+  type: FETCH_REQUEST,
+});
 
 export default logMiddleware;
